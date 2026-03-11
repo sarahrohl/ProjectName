@@ -53,7 +53,7 @@ jobs:
         if: always() && steps.gate.outputs.match == 'true' && steps.translate.outputs.has_output != 'true'
         run: |
           cat > comment.md << 'EOF'
-          âŒ **Error:** The translation script failed before producing output. Please check the workflow logs for details and verify that your input data is correctly formatted.
+          ❌ **Error:** The translation script failed before producing output. Please check the workflow logs for details and verify that your input data is correctly formatted.
           EOF
 
       - name: Post comment to issue
