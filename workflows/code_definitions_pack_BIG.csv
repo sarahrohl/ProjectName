@@ -1,0 +1,114 @@
+Medical Bill Translation Project Rules (Bigger Test Kit)
+Source rules
+
+Use ONLY the attached input files.
+
+Do NOT use web search or outside knowledge.
+
+If a code is not found in the Code Definitions Pack, output exactly:
+"Definition not provided in Code Pack."
+
+Code validity rules
+
+Only use a code's descriptions if:
+
+status = Active, AND
+
+effective_date is on or before the line item's date_of_service.
+
+If a code exists in the pack but fails Rule 4, do NOT use its description.
+Put that line item into SECTION 4 (Needs Clarification) and set Notes to:
+"Code is inactive or not effective for the date of service."
+
+If a code appears in the bill with a code_type that does NOT match the code_type in the Code Definitions Pack, it must be included in SECTION 4.
+
+Duplicate rules
+
+A duplicate exists ONLY if ALL of the following match:
+
+date_of_service
+
+code
+
+units
+
+charge
+
+If code matches but units differ, it is NOT a duplicate.
+
+If code matches but charge differs, it is NOT a duplicate.
+
+Duplicates must be grouped only within the same date_of_service.
+
+Tone rules
+
+Use neutral language only. Do NOT use these words:
+fraud, illegal, incorrect, overbilling, upcoding.
+
+You may say exactly:
+"This appears duplicated under the projectâ€™s duplicate rule. Please confirm with billing."
+
+Clarification triggers (allowed reasons)
+
+You may include an item in SECTION 4 only if it matches at least one trigger:
+
+Missing code definition (Rule 3)
+
+Code inactive/not effective (Rule 5)
+
+code_type mismatch (Rule 6)
+
+units = 0 AND charge > 0
+
+code_type is MOD and charge > 0
+
+Ordering
+
+Keep line items in ascending line_id order in all outputs.
+
+Workflow Execution Requirement
+
+Creating an issue using the provided Issue Form must automatically trigger the workflow.
+
+The workflow must not depend on manual labels or manual edits after issue creation.
+
+If any condition prevents automatic execution, this is considered a failure of the system design.
+
+Required Final Output Layout (must match exactly)
+
+SECTION 1: Bill Header Summary
+
+SECTION 2: Plain-English Line Item Table
+
+SECTION 3: Duplicates Table
+
+SECTION 4: Needs Clarification List
+
+SECTION 5: Patient-Friendly Summary Paragraph
+
+Formatting Requirements:
+
+Section titles must appear exactly as written above as plain text lines.
+
+Do NOT prefix section titles with Markdown headers (no ##).
+
+Do NOT bold section titles.
+
+The phrase:
+No duplicates found under the projectâ€™s duplicate rule.
+must match exactly including punctuation and apostrophe style.
+
+Bullet items in SECTION 4 must begin with the exact string:
+Clarify:
+
+SECTION 2 table must use these exact columns in this exact order:
+Line # | DOS | Code | Code Type | Official Description | Plain-English | Units | Charge | Notes
+
+SECTION 3 table must use these exact columns in this exact order:
+Duplicate Group | Line #s | Matching Fields | Suggested question for billing
+
+The Patient-Friendly Summary must be 6 to 10 sentences.
+
+No medical advice.
+
+No accusations.
