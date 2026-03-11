@@ -1,0 +1,78 @@
+name: Medical Bill Translation
+description: Submit structured medical billing data for automated translation into a patient-facing summary.
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Medical Bill Translation Request
+        Paste your bill header information and structured line-item data below.
+        **Important:** All data must be fully redacted of any protected health information (PHI) before submission.
+
+  - type: input
+    id: provider_name
+    attributes:
+      label: Provider Name
+      description: Name of the billing provider.
+      placeholder: e.g. Main Street Medical Group
+    validations:
+      required: false
+
+  - type: input
+    id: facility_name
+    attributes:
+      label: Facility Name
+      description: Name of the facility.
+      placeholder: e.g. City General Hospital
+    validations:
+      required: false
+
+  - type: input
+    id: bill_date
+    attributes:
+      label: Bill Date
+      description: Date the bill was issued (YYYY-MM-DD).
+      placeholder: e.g. 2026-01-10
+    validations:
+      required: false
+
+  - type: input
+    id: patient_account
+    attributes:
+      label: Patient Account Number
+      description: Redacted or anonymized account number.
+      placeholder: e.g. ACCT-00123
+    validations:
+      required: false
+
+  - type: input
+    id: total_billed
+    attributes:
+      label: Total Billed
+      description: Total billed amount (optional â€” will be computed from line items if left blank).
+      placeholder: e.g. 16630.00
+    validations:
+      required: false
+
+  - type: textarea
+    id: line_items
+    attributes:
+      label: Line Items
+      description: |
+        Paste your structured line-item data here (CSV or tab-separated from a spreadsheet).
+        Required columns: line_id, date_of_service, code, code_type, units, charge
+        Optional column: bill_label
+      placeholder: |
+        line_id,date_of_service,code,code_type,units,charge,bill_label
+        1,2026-01-03,P1021,PROC,2,180.00,Service P1021
+      render: text
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: redaction_confirmation
+    attributes:
+      label: Redaction Confirmation
+      description: You must confirm that all data has been redacted before submitting.
+      options:
+        - label: I confirm all data has been redacted.
+          required: true
